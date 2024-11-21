@@ -8,9 +8,11 @@ function routers() {
 Route::get('/',[SubdomainController::class,'welcome']);
 Route::get('/{hello}',[SubdomainController::class,'sayHello']);
 }
-Route::domain('restaurant.test','{subdomain}.restaurant.test')->group(function (){
+Route::domain('multisubdomain.test')->group(function (){
     routers();
 });
-Route::domain('{subdomain}.restaurant.test')->group(function (){
+Route::domain('{subdomain}.multisubdomain.test')
+->middleware('checkSubdomain')
+->group(function (){
     routers();
 });
